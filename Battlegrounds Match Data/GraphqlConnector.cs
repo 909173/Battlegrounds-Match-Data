@@ -59,7 +59,7 @@ namespace BattlegroundsMatchData
             string recordString = ListToString(recordList);
 
             string queryString = $"mutation {{createGameRecord({recordString}) {{ ok }} }}";
-            PostGraphql(queryString);
+            //PostGraphql(queryString);
         }
 
         public static void WriteBoard(GameRecord record)
@@ -71,7 +71,7 @@ namespace BattlegroundsMatchData
             string board2 = ListToString(snap2.ToArgList());
 
             string queryString = $"mutation {{board1:createBoard({board1}) {{ ok }} board2:createBoard({board2}) {{ ok }} }} ";
-            PostGraphql(queryString);
+            //PostGraphql(queryString);
         }
 
         public static async void PostGraphql(string queryString)
@@ -83,7 +83,7 @@ namespace BattlegroundsMatchData
 
             var content = new FormUrlEncodedContent(values);
 
-            var response = await client.PostAsync("http://bgstats.cintrest.com/graphql", content);
+            //var response = await client.PostAsync("http://bgstats.cintrest.com/graphql", content);
             //var response = await client.PostAsync("http://localhost:8000/bg_stats/graphql", content);
 
             //var responseString = await response.Content.ReadAsStringAsync();

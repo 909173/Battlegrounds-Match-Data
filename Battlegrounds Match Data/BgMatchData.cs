@@ -289,10 +289,21 @@ namespace BattlegroundsMatchData
                     .ToArray();
 
             Entity hero = Core.Game.Entities.Values
-                .Where(x => x.IsHero && x.IsInPlay && x.IsControlledBy(playerId))
+                .Where(x => x.IsHero && x.GetTag(GameTag.PLAYER_ID) == Core.Game.Player.Id)
                 .FirstOrDefault();
 
-            Snapshot.Hero = hero.LocalizedName;
+
+            var heroCard = Database.GetCardFromId(hero.CardId);
+            if (heroCard?.BattlegroundsSkinParentId > 0)
+            {
+                heroCard = Database.GetCardFromDbfId(heroCard.BattlegroundsSkinParentId, false);
+            }
+            else if (hero.GetTag(GameTag.BACON_PLAYER_RESULTS_HERO_OVERRIDE) > 0)
+            {
+                heroCard = Database.GetCardFromDbfId(hero.GetTag(GameTag.BACON_PLAYER_RESULTS_HERO_OVERRIDE), false);
+            }
+
+            Snapshot.Hero = heroCard.LocalizedName;
             if (entities.Length > 0)
             {
                 Snapshot.Minions = entities.Aggregate((a, b) => a + ", " + b);
@@ -358,11 +369,12 @@ namespace BattlegroundsMatchData
 
             Log.Info($"Game ended - {_record.Snapshot.Hero} - Position: {_record.Position}");
 
+            CsvConnector.WriteBoard(_record);
+            WriteGameRecord();
             if (lastBattleTurn != lastRecordedTurn && _record.Histories.Count >= 2)
             {
-                CsvConnector.WriteBoard(_record);
                 if (_config.SpreadsheetUploadEnabled) SpreadsheetConnector.WriteBoard(_record);
-                if (_config.GraphqlUploadEnabled) GraphqlConnector.WriteBoard(_record);
+                //if (_config.GraphqlUploadEnabled) GraphqlConnector.WriteBoard(_record);
             }
 
             //GameLogManager.SaveLog();
@@ -399,8 +411,6 @@ namespace BattlegroundsMatchData
             if (!InBgMode("In Menu")) return;
 
             _checkRating = true;
-            _rating = Core.Game.BattlegroundsRatingInfo.Rating;
-            Log.Info($"In Menu - Prev Rating: {_rating}");
         }
 
         internal static void Update()
@@ -410,23 +420,6 @@ namespace BattlegroundsMatchData
             {
                 _checkStats--;
                 UpdateStats();
-            }
-
-            // rating is only updated after we have passed the menu
-            if (_checkRating)
-            {
-                if (!InBgMode("Update")) return;
-
-                int latestRating = Core.Game.BattlegroundsRatingInfo.Rating;
-
-                Log.Info($"Checking rating. Current time is: {DateTime.Now}, {DateTime.Now.Millisecond}ms ");
-                _record.MmrChange = latestRating - _rating;
-                _rating = latestRating;
-                _checkRating = false;
-                _record.Rating = _rating;
-                Log.Info($"Rating Updated: {_rating}");
-
-                Task.Run(WriteGameRecord); // write asynchronously
             }
         }
 
@@ -466,8 +459,8 @@ namespace BattlegroundsMatchData
         internal static void WriteGameRecord()
         {
             CsvConnector.WriteGameRecord(_record);
-            if (_config.GraphqlUploadEnabled) GraphqlConnector.WriteGameRecord(_record);
-            if (_config.SpreadsheetUploadEnabled) SpreadsheetConnector.WriteGameRecord(_record);
+            //if (_config.GraphqlUploadEnabled) GraphqlConnector.WriteGameRecord(_record);
+            //if (_config.SpreadsheetUploadEnabled) SpreadsheetConnector.WriteGameRecord(_record);
 
         }
     }

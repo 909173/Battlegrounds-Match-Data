@@ -19,8 +19,8 @@ namespace BattlegroundsMatchData
         public bool showStatsOverlay = true;
 
         // csv settings
-        public string CsvGameRecordLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\BGMatchDataGames.csv";
-        public string CsvBoardRecordLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\BGMatchDataBoards.csv";
+        public string CsvGameRecordLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\" + DateTime.Now.ToString("yyyy-mm-dd") + @"BGMatchDataGames.csv";
+        public string CsvBoardRecordLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\" + DateTime.Now.ToString("yyyy-mm-dd") + @"BGMatchDataBoards.csv";
 
         // spreadsheet settings
         public bool SpreadsheetUploadEnabled = false;
@@ -30,7 +30,7 @@ namespace BattlegroundsMatchData
         public string CredentialLocation;
 
         // graphql settings
-        public bool GraphqlUploadEnabled = true;
+        public bool GraphqlUploadEnabled = false;
         public bool GraphqlUploadLocal = false;
 
         public void save()
@@ -91,26 +91,26 @@ namespace BattlegroundsMatchData
 
 
             // create settings flyout
-            _settingsFlyout = new Flyout();
-            _settingsFlyout.Name = "BgSettingsFlyout";
-            _settingsFlyout.Position = Position.Left;
-            Panel.SetZIndex(_settingsFlyout, 100);
-            _settingsFlyout.Header = "Battlegrounds Match Data Settings";
-            _settingsControl = new SettingsControl(config, MountOverlay, UnmountOverlay);
-            _settingsFlyout.Content = _settingsControl;
-            _settingsFlyout.ClosingFinished += (sender, args) =>
-            {
-                config.SpreadsheetUploadEnabled = (bool)_settingsControl.UploadToggle.IsChecked;
-                config.CsvGameRecordLocation = _settingsControl.CsvLocation.Text;
-                config.CsvBoardRecordLocation = _settingsControl.BoardCsvLocation.Text;
-                config.CredentialLocation = _settingsControl.CredentialLocation.Text;
-                config.SpreadsheetId = _settingsControl.SpreadsheetID.Text;
-                config.TurnToStartTrackingAllBoards = Int32.Parse(_settingsControl.TurnToTrack.Text);
-                config.GraphqlUploadEnabled = (bool)_settingsControl.BgStatsToggle.IsChecked;
-                config.showStatsOverlay = (bool)_settingsControl.StatsOverlayToggle.IsChecked;
-                config.save();
-            };
-            Core.MainWindow.Flyouts.Items.Add(_settingsFlyout);
+            //_settingsFlyout = new Flyout();
+            //_settingsFlyout.Name = "BgSettingsFlyout";
+            //_settingsFlyout.Position = Position.Left;
+            //Panel.SetZIndex(_settingsFlyout, 100);
+            //_settingsFlyout.Header = "Battlegrounds Match Data Settings";
+            //_settingsControl = new SettingsControl(config, MountOverlay, UnmountOverlay);
+            //_settingsFlyout.Content = _settingsControl;
+            //_settingsFlyout.ClosingFinished += (sender, args) =>
+            //{
+            //    config.SpreadsheetUploadEnabled = (bool)_settingsControl.UploadToggle.IsChecked;
+            //    config.CsvGameRecordLocation = _settingsControl.CsvLocation.Text;
+            //    config.CsvBoardRecordLocation = _settingsControl.BoardCsvLocation.Text;
+            //    config.CredentialLocation = _settingsControl.CredentialLocation.Text;
+            //    config.SpreadsheetId = _settingsControl.SpreadsheetID.Text;
+            //    config.TurnToStartTrackingAllBoards = Int32.Parse(_settingsControl.TurnToTrack.Text);
+            //    config.GraphqlUploadEnabled = (bool)_settingsControl.BgStatsToggle.IsChecked;
+            //    config.showStatsOverlay = (bool)_settingsControl.StatsOverlayToggle.IsChecked;
+            //    config.save();
+            //};
+            //Core.MainWindow.Flyouts.Items.Add(_settingsFlyout);
 
         }
 
