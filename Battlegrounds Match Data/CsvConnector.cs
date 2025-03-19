@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.IO;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 
 namespace BattlegroundsMatchData
 {
@@ -48,14 +49,14 @@ namespace BattlegroundsMatchData
 
             TurnSnapshot snap1 = record.Histories.Last();
             TurnSnapshot snap2 = record.Histories[record.Histories.Count - 2];
-
+            Log.Info($"{snap2.Turn}");
             string output1 = String.Join(",", snap1.ToList(true).Select(x => AddQuotes(x.ToString())));
             string output2 = String.Join(",", snap2.ToList(true).Select(x => AddQuotes(x.ToString())));
 
             using (StreamWriter sw = File.AppendText(_config.CsvBoardRecordLocation))
             {
                 sw.WriteLine(output1);
-                sw.WriteLine(output2);
+                //sw.WriteLine(output2);
             }
         }
     }

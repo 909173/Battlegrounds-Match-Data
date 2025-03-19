@@ -8,6 +8,7 @@
              mc:Ignorable="d" >
 
     <StackPanel x:Name="panel" HorizontalAlignment="Left">
+        
         <DockPanel Margin="10">
             <Label Content="Game Data CSV Location" FontSize="16"></Label>
             <TextBox Name="CsvLocation" Text="Label 1" FontSize="16"  VerticalAlignment="Center"  Width="500" TextWrapping="Wrap" HorizontalAlignment="Right"></TextBox>
@@ -19,7 +20,7 @@
         <Separator></Separator>
         <DockPanel Margin="10,10,10,0">
             <Label Content="Enable Google Spreadsheet Upload" FontSize="16"/>
-            <controls:ToggleSwitch Name="UploadToggle" HorizontalAlignment="Right" OnLabel="" OffLabel="" />
+            <!--<controls:ToggleSwitch Name="UploadToggle" HorizontalAlignment="Right" />-->
         </DockPanel>
         <DockPanel Margin="10,10,10,0">
             <Label Content="Credential Location" FontSize="16"></Label>
@@ -36,7 +37,7 @@
         <Separator></Separator>
         <DockPanel Margin="10,10,10,0">
             <Label Content="Enable upload to BgStats Dashboard" FontSize="16"/>
-            <controls:ToggleSwitch Name="BgStatsToggle" HorizontalAlignment="Right" OnLabel="" OffLabel="" />
+            <!--<controls:ToggleSwitch Name="BgStatsToggle" HorizontalAlignment="Right" />-->
         </DockPanel>
         <DockPanel Margin="10">
             <Label Content="View data for" FontSize="16"></Label>
@@ -49,7 +50,7 @@
         <Separator></Separator>
         <DockPanel Margin="10,10,10,0">
             <Label Content="Enable minion statistics overlay" FontSize="16"/>
-            <controls:ToggleSwitch Name="StatsOverlayToggle" HorizontalAlignment="Right" OnLabel="" OffLabel="" Checked="Mount" Unchecked="Unmount" />
+            <!--<controls:ToggleSwitch Name="StatsOverlayToggle" HorizontalAlignment="Right"  />-->
         </DockPanel>
     </StackPanel>
 </UserControl>

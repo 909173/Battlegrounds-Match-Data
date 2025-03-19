@@ -21,9 +21,9 @@ Your minions' average & total stats (attack & health) will also be shown on an o
 
 ## Installation
 1. Download the latest `BattlegroundsMatchData.zip` file from the [releases page](https://github.com/jawslouis/battlegrounds-stats/releases)
-2. Launch Hearthstone Deck Tracker. Go to `Options -> Tracker -> Plugins`
-3. Drag and drop the zip file onto the Plugins window. Enable the plugin.
-4. From the toolbar, go to `Plugins -> Battlegrounds Match Data Settings`. This will open the settings menu. 
+3. Launch Hearthstone Deck Tracker. Go to `Options -> Tracker -> Plugins`
+4. Unzip the file locally. Then, drag and drop the unzipped file onto the Plugins window. Enable the plugin.
+5. From the toolbar, go to `Plugins -> Battlegrounds Match Data Settings`. This will open the settings menu. 
 
 ![Settings](Images/settings.PNG?raw=true)  
 
